@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body,
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Source Sans 3", sans-serif;
+        background-color: #ffffff;
+        padding-top: 40px;
+      }
+      .title {
+        min-width: 80pt;
+        max-width: 600pt;
+        font-weight: 600;
+        color: rgba(47, 47, 47, 1);
+        font-size: 1.75rem;
+        margin-top: 20px;
+      }
+      .subtitle {
+        min-width: 80pt;
+        max-width: 600pt;
+        font-weight: 400;
+        color: #2f2f2f;
+        font-size: 16px;
+        margin-top: 16px;
+        padding: 0px 40pt 0px 40pt;
+        line-height: 1.75;
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div
+      style="
+        border: 1px solid #d9d9d9;
+        border-radius: 4px;
+        max-width: 600pt;
+        margin: 0 auto;
+      "
+    >
+      <!-- welcome message container -->
+      <div style="text-align: center; width: 100%; margin-top: 20pt">
+        <img src="../static/logo.png" width="250px" height="200px" />
+        <p class="title">Welcome to Regent University Summer Camp!</p>
+        <p class="subtitle">
+          Dear {{ name | safe}},<br />
+          You have been automatically enrolled for Regent University Summer Camp
+          from the waiting list.
+        </p>
+        <p>
+          Please Click on the link below to learn more about the proceedings.
+        </p>
+
+        <table
+          style="
+            border-collapse: separate;
+            border-spacing: 0 2px;
+            width: 100%;
+            margin-top: 20px;
+          "
+        >
+          <tr>
+            <td align="center" style="width: 100%">
+              <p>
+                <a
+                  style="
+                    display: flex !important;
+                    text-decoration: none;
+                    border-radius: 4px;
+                    color: #fff !important;
+                    background-color: #00133e;
+                    height: 30pt;
+                    width: 180pt;
+                    border: 0px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    font-size: 12pt;
+                    margin-bottom: 8px;
+                    text-align: center;
+                    line-height: 30pt;
+                  "
+                  href="{{ homepage_link | safe }}"
+                  target="_blank"
+                >
+                  <span style="width: 100%">Learn More</span>
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <hr
+          width="100%"
+          style="border-top: 1px solid #ebebeb; margin-top: 10pt"
+        />
+      </div>
+
+      <!-- contact container -->
+      <div
+        style="
+          text-align: center;
+          color: #2f2f2f;
+          width: 100%;
+          display: flex;
+          font-size: 14px;
+          padding: 10pt 0pt;
+        "
+      >
+        <table
+          style="border-collapse: separate; border-spacing: 0 2px; width: 100%"
+        >
+          <tr>
+            <td><span> Regards, </span></td>
+          </tr>
+          <tr></tr>
+          <tr></tr>
+          <tr>
+            <td>
+              <span style="font-style: italic"
+                >If you have any queries, please send an email to
+                <a
+                  style="text-decoration: none; color: #00267c !important"
+                  href="mailto:regenuni@gmail.com"
+                >
+                  noreply.regentuni@gmail.com
+                </a>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

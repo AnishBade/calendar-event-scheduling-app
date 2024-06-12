@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+      - dev-static-data:/vol/web
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=calendar_devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    depends_on:
+      - db
+      # - rabbitmq3
+
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - calendar-dev-db-data:/var/lib/postgresql/data
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_DB=calendar_devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_PORT=5435
+
+  celery:
+    build: .
+    command: celery -A app worker -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - app
+      - rabbitmq3
+    environment:
+      - CELERY_BROKER_URL=amqp://rabbitmq:rabbitmq@rabbitmq3:5672/
+      - CELERY_BACKEND_URL=rpc://
+
+  rabbitmq3:
+    container_name: "rabbitmq_local"
+    image: rabbitmq:3.8-management-alpine
+    ports:
+        # AMQP protocol port
+      - '5672:5672'
+        # HTTP management UI
+      - '15672:15672'
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+volumes:
+  calendar-dev-db-data:
+  dev-static-data:
+  rabbitmq-data:
